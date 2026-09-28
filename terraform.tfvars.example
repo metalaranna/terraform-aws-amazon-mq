@@ -1,0 +1,23 @@
+# Copy to terraform.tfvars and edit. terraform.tfvars is git-ignored.
+region = "us-east-1"
+name   = "orders-broker"
+
+engine_type         = "ActiveMQ"  # or "RabbitMQ"
+engine_version      = "5.18.6"
+host_instance_type  = "mq.t3.micro"
+deployment_mode     = "SINGLE_INSTANCE"  # or "ACTIVE_STANDBY_MULTI_AZ" for HA
+
+vpc_id     = "vpc-0123456789abcdef0"
+subnet_ids = ["subnet-0123456789abcdef0"]  # 2 subnets in different AZs for ACTIVE_STANDBY_MULTI_AZ
+
+# CIDRs of the app/VPN/bastion that should reach the broker
+allowed_cidr_blocks = ["10.0.0.0/16"]
+
+publicly_accessible = false
+
+# Leave admin_password unset to auto-generate a password stored in Secrets Manager.
+# admin_password = "set-your-own-strong-password"
+
+tags = {
+  Environment = "dev"
+}
